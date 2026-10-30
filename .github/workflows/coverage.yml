@@ -1,0 +1,25 @@
+name: Veri Kapsami Kontrolu
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/coverage.yml'
+permissions:
+  contents: read
+concurrency:
+  group: sports-coverage-probe
+  cancel-in-progress: false
+jobs:
+  coverage:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Guvenlik ve siniflandirma testleri
+        run: python3 -m unittest discover -s tests -v
+      - name: Guncel sezon ve canli veri kapsami
+        env:
+          API_SPORTS_KEY: ${{ secrets.API_SPORTS_KEY }}
+        run: python3 -m scripts.probe_coverage
