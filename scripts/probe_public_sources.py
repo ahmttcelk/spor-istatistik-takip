@@ -27,7 +27,7 @@ def main():
         print("\nLEAGUE " + label, flush=True)
         try:
             base = BASE + "/" + sport + "/" + league
-            payload = request_json(base, "/scoreboard", params={"dates": dates, "limit": 1000})
+            payload = request_json(base, "/scoreboard", params=None)
             if not isinstance(payload.get("events"), list) or not payload.get("leagues"):
                 print("FEED_UNVERIFIED")
                 continue
