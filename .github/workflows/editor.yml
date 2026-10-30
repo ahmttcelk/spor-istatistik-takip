@@ -1,0 +1,21 @@
+name: Alarm Ekrani Kontrolu
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'docs/index.html'
+      - 'scripts/verify_editor.py'
+      - '.github/workflows/editor.yml'
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Ekran sozdizimi, takim ve oyuncu listeleri
+        run: python3 -m scripts.verify_editor
