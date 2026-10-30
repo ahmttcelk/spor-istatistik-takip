@@ -1,0 +1,23 @@
+name: Ucretsiz Kaynak Kontrolu
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/public-sources.yml'
+permissions:
+  contents: read
+concurrency:
+  group: public-sports-source-probe
+  cancel-in-progress: false
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Guvenlik testleri
+        run: python3 -m unittest discover -s tests -v
+      - name: Futbol ve NBA kaynagini kontrol et
+        run: python3 -m scripts.probe_public_sources
