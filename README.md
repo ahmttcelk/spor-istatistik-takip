@@ -13,7 +13,7 @@ Tablet üzerinden yönetilen futbol ve NBA alarm sistemi. Çalışma GitHub Acti
 
 ## Tablet ekranı
 
-GitHub Settings > Pages > Deploy from a branch > main > /docs > Save ile statik alarm hazırlama ekranı açılır. Anahtar/token girişi yoktur. Ekran takım ve oyuncu listelerini doğrudan ESPN'den ister. Kadro yüklenmezse eksik seçimle alarm kaydedilmez.
+GitHub Settings > Pages > Source > GitHub Actions seçilir. Ardından Actions > Alarm Ekranini Yayinla > Run workflow ile statik alarm hazırlama ekranı yayınlanır. Anahtar/token girişi yoktur. Takım listeleri yayınlama sırasında ESPN'den alınır ve ekranla birlikte sunulur; tarayıcı erişim kısıtına takılmaz. Oyuncu kadrosu seçilen takım için doğrudan ESPN'den alınır. Yayınlama workflow'u her gün takım listesini yeniler. Kadro yüklenmezse eksik seçimle alarm kaydedilmez.
 
 Ekranda lig, takım, oyuncu veya takım istatistiği, karşılaştırma ve eşik seç. Listeye ekle. Yedeği indir; sayfa tercihi otomatik saklamaz. Listeyi kopyala ve GitHub Settings > Secrets and variables > Actions > ALERTS_JSON kalem simgesi > Secret > Update secret alanına kaydet. Sonraki kontrolde uygulanır.
 
