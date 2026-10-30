@@ -1,0 +1,27 @@
+name: Kurulum - Baglanti Kontrolu
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/setup.yml'
+permissions:
+  contents: read
+concurrency:
+  group: setup-connection-check
+  cancel-in-progress: false
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Python guvenlik testleri
+        run: python3 -m unittest discover -s tests -v
+      - name: API ve Telegram baglantisini kontrol et
+        env:
+          API_SPORTS_KEY: ${{ secrets.API_SPORTS_KEY }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: python3 -m scripts.check_connections
