@@ -38,6 +38,15 @@ def main():
                           key=lambda e: e.get("date", ""), reverse=True)
             selected = (live or post)[:1]
             if not selected:
+                calendar = payload.get("leagues", [{}])[0].get("calendar") or []
+                previous = sorted([d[:10] for d in calendar if isinstance(d, str)
+                                   and len(d) >= 10 and d[:10] < today.isoformat()])
+                if previous:
+                    prior = request_json(base, "/scoreboard",
+                        params={"dates": previous[-1].replace("-", "")})
+                    earlier = prior.get("events") or []
+                    selected = [e for e in earlier if state(e) == "post"][:1]
+            if not selected:
                 print("NO_IN_PROGRESS_OR_COMPLETED_SAMPLE; PLAYER_SUPPORT_UNVERIFIED")
                 continue
             event = selected[0]
@@ -65,7 +74,7 @@ def main():
                 print("ROSTER_KEYS " + json.dumps(sorted(roster.keys())))
                 entries = roster.get("roster") or []
                 if entries:
-                    print("ROSTER_SAMPLE " + json.dumps(entries[0])[:2800])
+                    print("ROSTER_STAT_NAMES " + json.dumps(sorted({s.get("name", "") for entry in entries for s in entry.get("stats", [])})))
             print("LIVE_DATA_VERIFIED" if live else "COMPLETED_SAMPLE_ONLY; LIVE_DATA_UNVERIFIED")
         except SafeError as exc:
             print("FEED_UNAVAILABLE " + str(exc))
