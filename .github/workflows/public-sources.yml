@@ -4,6 +4,7 @@ on:
   push:
     paths:
       - '.github/workflows/public-sources.yml'
+      - 'scripts/probe_public_sources.py'
 permissions:
   contents: read
 concurrency:
