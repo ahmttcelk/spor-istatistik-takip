@@ -1,0 +1,297 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0b1424">
+  <title>Canlı Kupon Takip | 31 Ekim 2026</title>
+  <style>
+    :root{color-scheme:dark;--bg:#091321;--surface:#121f31;--surface2:#17283b;--border:#2b425a;--text:#eef5ff;--muted:#a7bbcf;--mint:#58e0ad;--gold:#f5ca74;--red:#ff8587;--blue:#94bffd}
+    *{box-sizing:border-box}
+    body{margin:0;background:radial-gradient(circle at top right,#1c3444 0,#091321 45%);color:var(--text);font:16px/1.5 system-ui,-apple-system,Segoe UI,Arial,sans-serif}
+    .container{max-width:1100px;margin:auto;padding:22px 16px 62px}
+    a{color:var(--mint)}.eyebrow{font-size:12px;letter-spacing:2px;font-weight:750;color:var(--mint);text-transform:uppercase}
+    h1{font-size:clamp(30px,5vw,49px);margin:10px 0 8px;line-height:1.12;letter-spacing:-1.4px}h2{margin:0;font-size:22px}
+    .sub,.muted{color:var(--muted)}.sub{margin:0 0 18px}.top{display:flex;gap:18px;align-items:flex-start;justify-content:space-between;flex-wrap:wrap}
+    .pill{border:1px solid var(--border);border-radius:99px;background:#172c3d;color:var(--text);padding:8px 12px;font-size:13px;font-weight:700}
+    .live{color:var(--mint);border-color:#37775b}
+    .info{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin:22px 0}
+    .btn{min-height:44px;cursor:pointer;padding:10px 15px;border:1px solid #33745e;background:#145f48;border-radius:12px;color:#fff;font-size:14px;font-weight:800}
+    .btn:disabled{cursor:wait;opacity:.6}.ghost{background:transparent;border-color:var(--border)}
+    .notice{border:1px solid #6d5135;background:#34271f;color:#fce4bf;border-radius:12px;padding:12px 14px;margin:12px 0}
+    .hidden{display:none}.sectionhead{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:26px 0 14px}
+    .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:15px}
+    .match{background:var(--surface);border:1px solid var(--border);border-radius:17px;padding:20px;min-width:0}
+    .match-top{display:flex;align-items:center;justify-content:space-between;gap:8px}
+    .league{font-size:12px;letter-spacing:.5px;color:var(--muted);font-weight:750}
+    .phase{font-size:12px;font-weight:750;background:#263b4f;padding:5px 9px;border-radius:99px;white-space:nowrap}
+    .names{font-size:16px;font-weight:800;margin:18px 0 10px;min-height:25px}
+    .scoreline{display:flex;align-items:center;justify-content:space-between;gap:12px}
+    .score{font-size:clamp(34px,5vw,46px);font-weight:850;letter-spacing:-1px}
+    .scoretime{font-size:13px;color:var(--muted);text-align:right}
+    .source{margin-top:10px;font-size:12px;color:var(--muted)}
+    .slip{background:var(--surface);border:1px solid var(--border);border-radius:18px;overflow:hidden}
+    .slip-head{padding:20px;border-bottom:1px solid var(--border);background:linear-gradient(130deg,#163748,#152339)}
+    .slip-head .price{font-size:34px;color:var(--mint);font-weight:900;letter-spacing:-1px}
+    .slip-head .muted{font-size:13px}.slip-head .slip-state{display:inline-block;margin-top:10px;border-radius:30px;padding:5px 10px;font-size:12px;background:#26374b;font-weight:700}
+    .pick{padding:15px 20px;border-bottom:1px solid var(--border)}.pick:last-child{border:0}
+    .pick-top{display:flex;gap:10px;justify-content:space-between;align-items:center}
+    .pick-name{font-size:13px;color:var(--muted);font-weight:750}.pick-choice{font-size:15px;font-weight:800;margin-top:5px}
+    .odds{color:var(--gold);font-weight:850;white-space:nowrap}.decision{font-size:12px;font-weight:750;color:var(--muted)}
+    .decision.ok{color:var(--mint)}.decision.bad{color:var(--red)}.decision.warn{color:var(--gold)}
+    footer{margin-top:28px;color:var(--muted);font-size:13px;line-height:1.7}footer a{word-break:break-all}
+    .dot{display:inline-block;width:8px;height:8px;margin-right:5px;border-radius:50%;background:var(--mint)}
+    @media(max-width:690px){.grid{grid-template-columns:1fr}.match{padding:17px}.container{padding:20px 13px 56px}.slip-head{padding:17px}.pick{padding:14px 17px}}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header class="top">
+      <div>
+        <div class="eyebrow">Spor İstatistik Takip · Canlı Maç Paneli</div>
+        <h1>4 Maç · 2 Tahmin</h1>
+        <p class="sub">31 Ekim 2026 Cumartesi · Saatler Türkiye saati (UTC+3)</p>
+      </div>
+      <a class="pill" href="./index.html">← Alarm ekranına dön</a>
+    </header>
+    <div class="info">
+      <span id="connection" class="pill">● Bağlanıyor</span>
+      <span class="pill">⟳ Her 5 dakikada otomatik kontrol</span>
+      <span class="pill" id="timer">Sonraki kontrol: —</span>
+      <button id="refresh" class="btn" type="button">Şimdi yenile</button>
+    </div>
+    <div class="muted" id="updated" aria-live="polite">Henüz doğrulanmış skor alınmadı.</div>
+    <div id="warning" class="notice hidden" role="status"></div>
+    <div class="sectionhead"><h2>Canlı skorlar</h2><span class="muted">Başlangıç: 18:15 / 18:30</span></div>
+    <div class="grid" id="matches"></div>
+    <div class="sectionhead"><h2>Tahmin karşılaştırması</h2><span class="muted">Ekran görüntüsündeki maç öncesi oranlar</span></div>
+    <div class="grid" id="slips"></div>
+    <footer>
+      <p><strong>Nasıl çalışıyor?</strong> Sayfa açık olduğu sürece ESPN'in anahtarsız skor uçlarına 5 dakikada bir sorgu gönderir. Sekmeye geri döndüğünde de hemen yeniler. Tarayıcı arka planda uykuya geçerse sorgular durabilir; kapalı cihazda kesintisiz arka plan kontrolü sunmaz. GitHub Pages yalnızca sayfayı barındırır.</p>
+      <p><strong>Veri notu:</strong> ESPN uçları resmî, garantili bir geliştirici servisi değildir. Kaynağa erişilemezse skor uydurulmaz ve eski veri <em>güncel</em> gösterilmez. Bahis oranları canlı değişmez; başlangıçta paylaştığın oranlar kullanılır. Kupon işaretleri skorun bahis koşuluna uygunluğunu gösterir; olasılık tahmini değildir.</p>
+      <p>Veri kaynağı: <a href="https://www.espn.com/soccer/scoreboard" target="_blank" rel="noopener noreferrer">ESPN futbol skorları</a> · <a href="https://github.com/ahmttcelk/spor-istatistik-takip" target="_blank" rel="noopener noreferrer">GitHub proje deposu</a></p>
+    </footer>
+  </div>
+  <script>
+  "use strict";
+  const DATE = "20261031";
+  const INTERVAL = 5 * 60 * 1000;
+  const games = [
+    {id:"rayo",league:"esp.1",leagueName:"İspanya La Liga",title:"Vallecano – Celta Vigo",start:"18:15",home:["rayo vallecano","vallecano"],away:["celta de vigo","celta","rc celta"],prediction:"1-1"},
+    {id:"eibar",league:"esp.2",leagueName:"İspanya 2. Lig",title:"Eibar – Almeria",start:"18:15",home:["eibar"],away:["almeria"],prediction:"1-1"},
+    {id:"mvv",league:"ned.2",leagueName:"Hollanda 1. Lig",title:"Maastricht – VVV Venlo",start:"18:30",home:["mvv maastricht","maastricht","mvv"],away:["vvv venlo","venlo"],prediction:"1-2"},
+    {id:"moreirense",league:"por.1",leagueName:"Portekiz Premier Lig",title:"Moreirense – Estrela",start:"18:30",home:["moreirense"],away:["estrela amadora","estrela"],prediction:"1-1"}
+  ];
+  const slips = [
+    {name:"Benim istatistiksel tercihim",kind:"model",picks:[
+      {result:"X",line:2.5,over:false,odd:3.46},
+      {result:"X",line:3.5,over:false,odd:4.28},
+      {result:"2",line:2.5,over:true,odd:2.46},
+      {result:"X",line:2.5,over:false,odd:3.57}
+    ]},
+    {name:"300–400 oranlı alternatif",kind:"high",picks:[
+      {result:"2",line:2.5,over:false,odd:5.42},
+      {result:"X",line:3.5,over:false,odd:4.28},
+      {result:"2",line:2.5,over:true,odd:2.46},
+      {result:"1",line:2.5,over:false,odd:5.34}
+    ]}
+  ];
+  const $ = id => document.getElementById(id);
+  const state = {};
+  let lastRequest = 0;
+  let running = false;
+  let errorMessage = "";
+  const fmt = x => x.toLocaleString("tr-TR",{minimumFractionDigits:2,maximumFractionDigits:2});
+  function norm(t){
+    return String(t||"").normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase().replace(/[^a-z0-9]+/g," ").trim();
+  }
+  function teamName(t){
+    return [t.displayName,t.name,t.shortDisplayName,t.abbreviation,t.location].map(norm).filter(Boolean);
+  }
+  function sameTeam(team,aliases){
+    return teamName(team).some(name=>aliases.some(a=>{
+      const s=norm(a);
+      return name===s || (s.length>=5 && (name.indexOf(s)>=0 || s.indexOf(name)>=0 && name.length>=5));
+    }));
+  }
+  function findMatch(events,definition){
+    for(const e of events){
+      const c=(e.competitions||[])[0];
+      const teams=(c&&c.competitors)||[];
+      const h=teams.find(v=>v.homeAway==="home");
+      const a=teams.find(v=>v.homeAway==="away");
+      if(h&&a&&sameTeam(h.team||{},definition.home)&&sameTeam(a.team||{},definition.away))return e;
+    }
+    return null;
+  }
+  function readScore(event){
+    const competition=(event.competitions||[])[0]||{};
+    const home=(competition.competitors||[]).find(v=>v.homeAway==="home");
+    const away=(competition.competitors||[]).find(v=>v.homeAway==="away");
+    if(!home||!away)return null;
+    const hs=Number(home.score),as=Number(away.score);
+    const status=event.status||competition.status||{};
+    const phase=(status.type||{}).state||"unknown";
+    const completed=Boolean(status.type&&status.type.completed);
+    const clock=status.displayClock||status.type&&status.type.shortDetail||status.type&&status.type.detail||"";
+    return {home:Number.isFinite(hs)&&home.score!==undefined&&home.score!==null?hs:null,away:Number.isFinite(as)&&away.score!==undefined&&away.score!==null?as:null,phase:completed?"post":phase,clock:String(clock),eventId:String(event.id||"")};
+  }
+  function available(g){return g&&g.home!==null&&g.away!==null;}
+  function resultFor(g){
+    if(g.home>g.away)return "1";
+    if(g.home<g.away)return "2";
+    return "X";
+  }
+  function evaluate(g,p){
+    if(!available(g))return {label:"Veri bekleniyor",level:""};
+    if(g.phase==="pre")return {label:"Başlamadı",level:""};
+    const total=g.home+g.away;
+    const goalNow=p.over?total>p.line:total<p.line;
+    const resultNow=resultFor(g)===p.result;
+    if(g.phase==="post")return goalNow&&resultNow?{label:"✓ Tuttu",level:"ok"}:{label:"✕ Tutmadı",level:"bad"};
+    if(!p.over&&!goalNow)return {label:"✕ Gol sınırı aşıldı",level:"bad"};
+    if(goalNow&&resultNow)return {label:"● Şu an uyumlu",level:"ok"};
+    if(p.over&&!goalNow)return {label:"Gol bekleniyor",level:"warn"};
+    return {label:"Sonuç bekleniyor",level:"warn"};
+  }
+  function pickText(p){return "MS"+p.result+" & "+String(p.line).replace(".",",")+" "+(p.over?"Üst":"Alt");}
+  function make(tag,cls,content){
+    const el=document.createElement(tag);
+    if(cls)el.className=cls;
+    if(content!==undefined)el.textContent=content;
+    return el;
+  }
+  function init(){
+    games.forEach((g,i)=>{
+      const card=make("article","match");
+      const top=make("div","match-top");
+      top.append(make("span","league",g.leagueName),make("span","phase","Bekleniyor"));
+      card.append(top,make("div","names",g.title));
+      const scoreline=make("div","scoreline");
+      scoreline.append(make("div","score","— : —"),make("div","scoretime","Başlangıç: "+g.start));
+      card.append(scoreline,make("div","source","Benim skor tahminim: "+g.prediction));
+      card.id="match-"+g.id;
+      $("matches").append(card);
+    });
+    slips.forEach((s,si)=>{
+      const wrap=make("article","slip");
+      const head=make("div","slip-head");
+      head.append(make("div","eyebrow",si===0?"TAHMİN 1":"TAHMİN 2"),make("h2","",s.name));
+      const combined=s.picks.reduce((x,p)=>x*p.odd,1);
+      head.append(make("div","price",fmt(combined)+" oran"),make("div","muted","4 karşılaşma · Başlangıç oranları"));
+      const badge=make("span","slip-state","Skor bekleniyor");
+      badge.id="state-"+si;
+      head.append(badge);wrap.append(head);
+      s.picks.forEach((p,i)=>{
+        const row=make("div","pick");
+        const top=make("div","pick-top");
+        top.append(make("span","pick-name",games[i].title),make("span","odds",fmt(p.odd)));
+        row.append(top,make("div","pick-choice",pickText(p)));
+        const tag=make("div","decision","Skor bekleniyor");
+        tag.id="pick-"+si+"-"+i;row.append(tag);
+        wrap.append(row);
+      });
+      $("slips").append(wrap);
+    });
+    render();
+  }
+  function render(){
+    games.forEach(g=>{
+      const card=$("match-"+g.id);
+      const phase=card.querySelector(".phase");
+      const score=card.querySelector(".score");
+      const time=card.querySelector(".scoretime");
+      const data=state[g.id];
+      if(!available(data)){
+        phase.textContent="Veri bulunamadı";
+        score.textContent="— : —";
+        time.textContent="Başlangıç: "+g.start;
+        return;
+      }
+      score.textContent=data.home+" : "+data.away;
+      if(data.phase==="post"){phase.textContent="Maç bitti";time.textContent="MS";}
+      else if(data.phase==="pre"){phase.textContent="Başlamadı";time.textContent="Başlangıç: "+g.start;}
+      else if(data.phase==="in"){phase.textContent="● CANLI";time.textContent=data.clock||"Devam ediyor";}
+      else{phase.textContent="Durum belirsiz";time.textContent=data.clock||"—";}
+    });
+    slips.forEach((s,si)=>{
+      const evaluations=s.picks.map((p,i)=>evaluate(state[games[i].id],p));
+      evaluations.forEach((v,i)=>{
+        const el=$("pick-"+si+"-"+i);
+        el.textContent=v.label;
+        el.className="decision "+v.level;
+      });
+      const finalCount=games.filter(g=>state[g.id]&&state[g.id].phase==="post").length;
+      const known=games.every(g=>available(state[g.id]));
+      const rejected=evaluations.some(v=>v.level==="bad");
+      const allWon=finalCount===4 && evaluations.every(v=>v.label==="✓ Tuttu");
+      const badge=$("state-"+si);
+      badge.textContent=allWon?"✓ 4/4 tuttu":rejected?"✕ Kupon koşulu bozuldu":finalCount===4?"Maçlar tamamlandı":!known?"Veri bekleniyor":"Devam ediyor · Sonuç kesinleşmedi";
+      badge.style.color=allWon?"#58e0ad":rejected?"#ff8587":"#eef5ff";
+    });
+    const any=games.filter(g=>available(state[g.id])).length;
+    const conn=$("connection");
+    conn.textContent=running?"● Veriler kontrol ediliyor":errorMessage?"● Eksik veri ("+any+"/4)":any===4?"● Veri alındı (4/4)":"● Kısmi veri ("+any+"/4)";
+    conn.className="pill "+(!errorMessage&&any===4?"live":"");
+    const warn=$("warning");
+    warn.textContent=errorMessage;
+    warn.classList.toggle("hidden",!errorMessage);
+  }
+  async function oneLeague(league){
+    const c=new AbortController();
+    const timeout=setTimeout(()=>c.abort(),15000);
+    try{
+      const url="https://site.api.espn.com/apis/site/v2/sports/soccer/"+encodeURIComponent(league)+"/scoreboard?dates="+DATE+"&limit=200";
+      const r=await fetch(url,{cache:"no-store",signal:c.signal});
+      if(!r.ok)throw Error("HTTP "+r.status);
+      const data=await r.json();
+      if(!data||!Array.isArray(data.events))throw Error("Skor listesi yok");
+      return data.events;
+    }finally{clearTimeout(timeout);}
+  }
+  async function update(){
+    if(running)return;
+    running=true;
+    $("refresh").disabled=true;
+    errorMessage="";
+    render();
+    const responses=await Promise.allSettled(games.map(g=>oneLeague(g.league)));
+    let found=0,failures=0;
+    responses.forEach((res,i)=>{
+      const def=games[i];
+      if(res.status==="fulfilled"){
+        const event=findMatch(res.value,def);
+        if(event){
+          const parsed=readScore(event);
+          if(parsed){state[def.id]=parsed;found++;return;}
+        }
+        delete state[def.id];
+        failures++;
+      }else{
+        // Eski veriyi yeniymiş gibi göstermeyelim.
+        delete state[def.id];
+        failures++;
+      }
+    });
+    lastRequest=Date.now();
+    running=false;
+    $("refresh").disabled=false;
+    if(failures)errorMessage=failures+" maçın güncel skoru veri kaynağından alınamadı. Bu maçlarda skor yerine '—' gösteriliyor.";
+    $("updated").textContent="Son kaynak sorgusu: "+new Date(lastRequest).toLocaleString("tr-TR",{timeZone:"Europe/Istanbul",hour:"2-digit",minute:"2-digit",second:"2-digit"})+" · ESPN kaynaklı skorlar, gecikmeli olabilir.";
+    render();
+    countdown();
+  }
+  function countdown(){
+    const left=lastRequest?Math.max(0,INTERVAL-(Date.now()-lastRequest)):0;
+    const sec=Math.ceil(left/1000);
+    $("timer").textContent=running?"Kontrol ediliyor…":"Sonraki kontrol: "+Math.floor(sec/60)+":"+String(sec%60).padStart(2,"0");
+  }
+  $("refresh").addEventListener("click",update);
+  document.addEventListener("visibilitychange",()=>{if(!document.hidden && (!lastRequest||Date.now()-lastRequest>60000))update();});
+  window.addEventListener("online",update);
+  init();
+  update();
+  setInterval(()=>{if(!document.hidden&&(!lastRequest||Date.now()-lastRequest>=INTERVAL))update();countdown();},1000);
+  </script>
+</body>
+</html>
